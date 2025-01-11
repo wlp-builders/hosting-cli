@@ -62,5 +62,11 @@ mv /root/wlp-cms-core-pack /var/www/html/wlp-core-plugins/enabled
 </VirtualHost>
 
 ```
-### 8. On your local machine browse
+
+### 8. On your local machine restart apache2
+```
+sudo service apache2 restart
+```
+
+### 9. On your local machine browse
 <a href="http://pod1.local">http://pod1.local</a>
