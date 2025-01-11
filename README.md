@@ -63,3 +63,5 @@ mv /root/wlp-cms-core-pack /var/www/html/wlp-core-plugins/enabled
 </VirtualHost>
 
 ```
+### 8. On your local machine browse
+<a href="http://pod1.local">http://pod1.local</a>
