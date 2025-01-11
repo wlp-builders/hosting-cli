@@ -1,6 +1,5 @@
 # hosting-cli
-Early preview hosting-cli for new WLP hosting partners.
-You'd need to make the wlp-core and wlp-core-plugins
+Early preview hosting-cli for new WLP hosting partners  (please test locally, not yet in production) .
 
 ### 1. Clone this folder with scripts
 ```
