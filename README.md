@@ -33,3 +33,33 @@ php create_pod.php # returns pod_*
 ```
 sh enter_pod.sh [pod_1]
 ```
+
+### 6. Unpack WLP inside the Pod
+```
+unzip /root/zips/wlp.zip /root/wlp
+unzip /root/zips/wlp-core-plugins.zip /root/wlp-cms-core-pack
+mkdir /var/www/html/wlp-core-plugins
+mv /root/wlp/* /var/www/html/
+mv /root/wlp-cms-core-pack /var/www/html/wlp-core-plugins/enabled
+```
+
+### 7. On your local machine add the reverse proxy
+```
+<VirtualHost *:80>
+    ServerName pod1.local
+
+    # Proxy traffic to another service (change portr)
+    ProxyPass / http://pod1.local:8128/
+    ProxyPassReverse / http://pod1.local:8128/
+
+    # Optional: Pass headers to preserve the original request information
+    RequestHeader set X-Real-IP %{REMOTE_ADDR}s
+    RequestHeader set X-Forwarded-For %{REMOTE_ADDR}s
+    RequestHeader set X-Forwarded-Proto "http"
+
+    # Optional: Enable logging for this VirtualHost
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+</VirtualHost>
+
+```
