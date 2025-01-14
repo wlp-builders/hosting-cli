@@ -1,8 +1,13 @@
 <?php
 
+if ($argc != 2) {
+    echo "Usage: php revive_pod.php [pod_n]\n";
+    exit(1);  // Exit with an error code (optional)
+}
+
 
 // Get the latest pod number and increment it
-$new_pod_number = 24; // get for cli
+$new_pod_number = $argv[1]; // get for cli
 
 // Define folder names
 $pod_var_folder = "../pods-data/pod_{$new_pod_number}_var_www";

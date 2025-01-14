@@ -1,4 +1,12 @@
 #!/bin/bash
+# setup mysql 
+sudo apt install mariadb-server -y
+
+# only setup mysql if /var/lib/mysql is empty
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+	mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql
+fi
+
 #
 # Start services in the background
 service apache2 restart &

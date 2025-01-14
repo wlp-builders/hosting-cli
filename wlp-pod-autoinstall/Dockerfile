@@ -1,18 +1,12 @@
 # Use Debian 12 as the base image
 FROM debian:bookworm-slim
 
-# Set environment variables for MariaDB
-ENV MYSQL_ROOT_PASSWORD=my-secret-pw
-ENV MYSQL_DATABASE=mydb
-ENV MYSQL_USER=myuser
-ENV MYSQL_PASSWORD=mypassword
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
     sudo \
     apache2 \
     openssh-server \
-    mariadb-server \
     php \
   php-mysql \
     php-bcmath \
@@ -27,7 +21,6 @@ RUN apt-get update && apt-get install -y \
     vim \
     wget \
     git \
-    jq \
     unzip \
     && apt-get clean
 
