@@ -1,20 +1,8 @@
 <?php
 
-// Function to find the latest pod folder number
-function get_latest_pod_number($prefix = "pod_") {
-    $latest_number = 0;
-    $current_dir = getcwd();
-    foreach (scandir($current_dir.'/../pods-data') as $file) {
-        if (preg_match("/^" . preg_quote($prefix) . "(\d+)_var_www$/", $file, $matches)) {
-            $latest_number = max($latest_number, (int)$matches[1]);
-        }
-    }
-    return $latest_number;
-}
 
 // Get the latest pod number and increment it
-$latest_pod_number = get_latest_pod_number();
-$new_pod_number = $latest_pod_number + 1;
+$new_pod_number = 24; // get for cli
 
 // Define folder names
 $pod_var_folder = "../pods-data/pod_{$new_pod_number}_var_www";
@@ -61,8 +49,7 @@ $SERVER='127.0.0.1';
 if ($result_code === 0) {
     $pod="pod_{$new_pod_number}";
     $pod_ip="$pod:$SERVER";
-	$nextCommand='sudo sh add_host_mod_proxy.sh '.$pod.' '.$new_port_http;
-    echo json_encode(["pod"=>$pod_ip,"command"=>$command,"nextCommand"=>$nextCommand],JSON_PRETTY_PRINT).PHP_EOL;
+    echo json_encode(["pod"=>$pod_ip,"command"=>$command],JSON_PRETTY_PRINT).PHP_EOL;
 } else {
     echo "Failed to start Podman container. Output:\n";
     print_r($output);

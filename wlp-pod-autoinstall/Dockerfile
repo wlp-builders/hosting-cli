@@ -9,6 +9,7 @@ ENV MYSQL_PASSWORD=mypassword
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
+    sudo \
     apache2 \
     openssh-server \
     mariadb-server \
@@ -26,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     vim \
     wget \
     git \
+    jq \
     unzip \
     && apt-get clean
 
@@ -48,16 +50,11 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 RUN echo "<?php phpinfo(); ?>" > /var/www/html/index.php
 
-# Create the entrypoint.sh script
-RUN echo '#!/bin/bash\n\
-\n\
-# Start services in the background\n\
-service apache2 restart &\n\
-service ssh restart &\n\
-service mariadb restart &\n\
-# Keep the container alive\n\
-sleep infinity\n' > /root/entrypoint.sh
+# Copy the zips folder with code
+COPY zips /root/zips
 
+# Copy the entrypoint script from your local machine to the container
+COPY entrypoint.sh /root/entrypoint.sh
 
 # Make the script executable
 RUN chmod +x /root/entrypoint.sh
