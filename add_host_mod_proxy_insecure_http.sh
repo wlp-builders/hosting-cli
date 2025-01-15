@@ -43,7 +43,7 @@ sudo tee -a $APACHE_CONF > /dev/null <<EOF
     # Optional: Pass headers to preserve the original request information
     RequestHeader set X-Real-IP %{REMOTE_ADDR}s
     RequestHeader set X-Forwarded-For %{REMOTE_ADDR}s
-    RequestHeader set X-Forwarded-Proto \"http\"
+    RequestHeader set X-Forwarded-Proto http
 
     # Optional: Enable logging for this VirtualHost
     CustomLog \${APACHE_LOG_DIR}/access.log combined

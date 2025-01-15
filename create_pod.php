@@ -61,8 +61,13 @@ $SERVER='127.0.0.1';
 if ($result_code === 0) {
     $pod="pod_{$new_pod_number}";
     $pod_ip="$pod:$SERVER";
-	$nextCommand='sudo sh add_host_mod_proxy.sh '.$pod.' '.$new_port_http;
-    echo json_encode(["pod"=>$pod_ip,"command"=>$command,"nextCommand"=>$nextCommand],JSON_PRETTY_PRINT).PHP_EOL;
+	$nextCommand='sudo sh add_host_mod_proxy_secure_https.sh '.$pod.' '.$new_port_http;
+    $nextCommand2='sudo sh add_host_mod_proxy_insecure_http.sh '.$pod.' '.$new_port_http;
+
+    echo json_encode(["pod"=>$pod_ip,"command"=>$command,
+	    "nextCommandOnline"=>$nextCommand,
+	    "nextCommandLocal"=>$nextCommand2
+    ],JSON_PRETTY_PRINT).PHP_EOL;
 } else {
     echo "Failed to start Podman container. Output:\n";
     print_r($output);
