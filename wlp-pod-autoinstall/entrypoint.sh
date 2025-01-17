@@ -32,5 +32,25 @@ FOLDER_PATH='/var/www/html'
 URL_WITH_PARAMS=$(bash $FOLDER_PATH/wlp-install/autoinstall-as-root.sh $FOLDER_PATH 'localhost')
 
 cd /var/www/html
+
+# also fix rewrites
+
+# Define the configuration block to be added
+CONFIG_BLOCK="<Directory /var/www/html>
+    AllowOverride All
+</Directory>"
+
+# Define the Apache configuration file path
+APACHE_CONF_FILE="/etc/apache2/apache2.conf"
+
+# Append the configuration block to the file
+echo "$CONFIG_BLOCK" | sudo tee -a "$APACHE_CONF_FILE" > /dev/null
+
+# Restart Apache to apply the changes
+sudo systemctl restart apache2
+
+echo "Configuration added to $APACHE_CONF_FILE and Apache restarted"
+
+
 sleep infinity
 
